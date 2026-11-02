@@ -99,7 +99,7 @@ a.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(
 .htop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center}
 .over{color:var(--gold);font-size:14px;letter-spacing:.04em;display:flex;align-items:center;gap:10px}
 .over::before{content:"";width:28px;height:1px;background:var(--gold)}
-.hero h1{font-size:clamp(42px,6vw,84px);line-height:1.15;margin-top:18px;font-weight:700;max-width:14ch;
+.hero h1{font-size:clamp(42px,6vw,84px);line-height:1.15;margin-top:0;font-weight:700;max-width:14ch;
   background:linear-gradient(180deg,#FFF8E8 30%,#E6BC63 120%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p{color:var(--muted);max-width:52ch;font-size:18px;font-weight:300;line-height:1.85;margin:22px 0 0}
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
@@ -465,7 +465,6 @@ td .pb i{display:block;height:3px;border-radius:2px;background:linear-gradient(9
   <div class="hin">
     <div class="htop">
       <div class="htext">
-        <div class="over" id="over"></div>
         <h1 data-en="The Atlas of Private Schools in Iraq">أطلس المدارس الأهلية في العراق</h1>
         <p id="lede"></p>
         <div class="cta">
@@ -936,7 +935,7 @@ function drawFigs(){
       <div class="fig"><span class="k">${T('حجم المدرسة الوسيط','Median school size')}</span>${cu('f4',N.med)}${gst}</div>`;
   }
   document.querySelectorAll('#figs [data-cu]').forEach(countUp);
-  $('#over').textContent=stage==='sec'?T('الإعدادية، السادس العلمي، 2025/2026','Preparatory · 6th science · 2025/2026'):T('الابتدائية، السادس الابتدائي، 2025/2026','Primary · 6th primary · 2025/2026');
+  
   $('#lede').textContent=stage==='sec'
     ?T('أين تنتشر المدارس الأهلية التي لديها صف سادس علمي، وما حجمها، ولمن تُدرّس. البيانات من امتحانات الدور الأول، حسب المحافظة والمديرية.','Where Iraq\'s private schools with a sixth-grade science class are, how large they are, and who they teach. Based on first-round exam results by governorate and directorate.')
     :T('أين تنتشر المدارس الأهلية والدولية التي لديها صف سادس ابتدائي، وما حجمها، ولمن تُدرّس. البيانات من امتحانات الدور الأول، حسب المحافظة والمديرية.','Where Iraq\'s private and international schools with a sixth-grade primary class are, how large they are, and who they teach. Based on first-round exam results.');
