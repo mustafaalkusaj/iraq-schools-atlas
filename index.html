@@ -473,12 +473,38 @@ h1,h2,h3{font-weight:700}
 .inset .ip.on{fill:var(--gold)}
 .over,.shead .ey{font-family:var(--latin)}
 @media (max-width:640px){.logo{width:96px}a.brand .bn{display:none}}
+
+/* motifs */
+.hero .arcs{display:none}
+.rings{position:absolute;pointer-events:none;fill:none}
+.rings circle{fill:none;stroke:rgba(230,188,99,.16)}
+.hero .rings{width:min(1200px,110vw);left:calc(-1 * min(600px,55vw));bottom:calc(-1 * min(600px,55vw))}
+.rings .r1{animation:spin 140s linear infinite;transform-origin:0 0}
+.rings .r2{animation:spin 200s linear infinite reverse;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stage{position:relative;overflow:hidden}
+.stage .sec{position:relative}
+.rings-stage{width:min(1200px,110vw);right:calc(-1 * min(600px,55vw));top:calc(-1 * min(600px,55vw))}
+.rings-stage circle{stroke:rgba(230,188,99,.10)}
+.cubit-curve{position:absolute;left:0;right:0;width:100%;height:clamp(70px,9vw,140px);bottom:clamp(150px,15vw,190px);pointer-events:none;overflow:visible}
+.cubit-curve path{fill:none;stroke:rgba(230,188,99,.32);stroke-width:1.4;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;animation:drawc 2.6s cubic-bezier(.4,.1,.2,1) .3s forwards}
+@keyframes drawc{to{stroke-dashoffset:0}}
+.hin{z-index:1}
+.ruler{position:absolute;left:0;right:0;bottom:-1px;height:7px;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(230,188,99,.35) 0 1px,transparent 1px 10px) bottom/100% 4px no-repeat,
+             repeating-linear-gradient(90deg,rgba(230,188,99,.55) 0 1px,transparent 1px 50px) bottom/100% 7px no-repeat}
+.ruler i{position:absolute;bottom:0;height:2px;width:0;background:#E6BC63;box-shadow:0 0 8px rgba(230,188,99,.8)}
+[dir="rtl"] .ruler i,.appbar[dir="rtl"] .ruler i{right:0}
+.appbar .ruler i{right:0}
+html[lang="en"] .appbar .ruler i{right:auto;left:0}
+@media (prefers-reduced-motion:reduce){.rings .r1,.rings .r2{animation:none}.cubit-curve path{animation:none;stroke-dashoffset:0}}
 </style>
 </head>
 <body>
 
 
 <div class="appbar full">
+  <div class="ruler" aria-hidden="true"><i id="rulerfill"></i></div>
   <div class="in" dir="rtl">
     <a class="brand" href="#" id="home"><span class="logo" role="img" aria-label="CUBIT"></span><span class="bn"><span data-en="Private Schools Atlas">أطلس المدارس الأهلية</span><small data-en="Iraq, 2025/2026">العراق، 2025/2026</small></span></a>
     <nav class="snav" aria-label="أقسام الموقع" data-en-aria="Site sections">
@@ -496,7 +522,8 @@ h1,h2,h3{font-weight:700}
 </div>
 
 <header class="hero full" dir="rtl">
-  <svg class="arcs" viewBox="0 0 420 420" aria-hidden="true"><path d="M0 420 A420 420 0 0 1 420 0" stroke-width="1.2"/><path d="M0 330 A330 330 0 0 1 330 0" stroke-width="18"/><path d="M0 250 A250 250 0 0 1 250 0" stroke-width="1"/><path d="M0 175 A175 175 0 0 1 175 0" stroke-width="10"/></svg>
+  <svg class="rings" viewBox="-600 -600 1200 1200" aria-hidden="true"><g class="r1"><circle r="560" stroke-width="1"/><circle r="470" stroke-width="22" stroke-dasharray="700 2253" stroke-dashoffset="-300"/></g><g class="r2"><circle r="380" stroke-width="1"/><circle r="300" stroke-width="12" stroke-dasharray="520 1365" stroke-dashoffset="-120"/><circle r="215" stroke-width="1"/></g></svg>
+  <svg class="cubit-curve" viewBox="0 0 1400 160" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 130 H560 C660 130 690 30 800 30 H1400"/></svg>
   <div class="hin">
     <div class="htop">
       <div class="htext">
@@ -529,7 +556,8 @@ h1,h2,h3{font-weight:700}
     <div class="finds" id="finds"></div>
   </section>
 
-  <section class="stage full" id="atlas" aria-labelledby="atlas-h"><div class="sec">
+  <section class="stage full" id="atlas" aria-labelledby="atlas-h">
+  <svg class="rings rings-stage" viewBox="-600 -600 1200 1200" aria-hidden="true"><g class="r2"><circle r="560" stroke-width="1"/><circle r="440" stroke-width="16" stroke-dasharray="620 2145"/><circle r="320" stroke-width="1"/></g></svg><div class="sec">
     <div class="shead"><h2 id="atlas-h" data-en="Where private schools are concentrated">أين تتركز المدارس الأهلية</h2><p data-en="Colour the governorates by count, private share or school size. Select a governorate to zoom in and open its profile.">لوّن المحافظات حسب العدد أو حصة الأهلي أو حجم المدرسة. اضغط على أي محافظة لتقريبها وفتح ملفها.</p></div>
     <div class="atlas">
       <div class="mapplate">
@@ -1291,7 +1319,8 @@ function applyLang(){
   const lb=$('#lang');lb.textContent=en?'ع':'EN';
   document.title=en?'Private Schools Atlas':'أطلس المدارس الأهلية';
 }
-$('#lang').onclick=()=>{lang=lang==='en'?'ar':'en';try{localStorage.setItem('atlas-lang',lang)}catch(e){}applyLang();syncDirUI();drawDir();drawFigs();drawFinds();drawCompare();drawHeroMap();render(false);toast(T('تم التبديل إلى العربية','Switched to English'))};
+$('#lang').onclick=()=>{lang=lang==='en'?'ar':'en';try{localStorage.setItem('atlas-lang',lang)}catch(e){}(function(){const f=document.getElementById('rulerfill');let t=0;function u(){t=0;const h=document.documentElement,m=h.scrollHeight-innerHeight;f.style.width=(m>0?Math.min(100,scrollY/m*100):0)+'%'}addEventListener('scroll',()=>{if(!t)t=requestAnimationFrame(u)},{passive:true});addEventListener('resize',u);u()})();
+applyLang();syncDirUI();drawDir();drawFigs();drawFinds();drawCompare();drawHeroMap();render(false);toast(T('تم التبديل إلى العربية','Switched to English'))};
 
 /* ---------- controls & routing ---------- */
 const press=(ids,on)=>ids.forEach(x=>$(x).setAttribute('aria-pressed',x===on));
